@@ -1,18 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public string nextLevel = "Scene_2";
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision) 
     {
-        
+        switch (collision.tag)
+        {
+            case "Death":  //respawn if dies
+                {
+                    string thisLevel = SceneManager.GetActiveScene().name;
+                    SceneManager.LoadScene(thisLevel);
+                    break;
+                }
+            case "Finish": //next Scene
+                {
+                    SceneManager.LoadScene(nextLevel);
+                    break;
+                }
+        }
     }
 }
+
+
+ 
